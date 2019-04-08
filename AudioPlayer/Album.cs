@@ -10,7 +10,6 @@ namespace AudioPlayer
     {
         string name;
         string path;
-        int year;
-        Album Album;
+        int year;        
     }
 }
