@@ -51,5 +51,20 @@ namespace AudioPlayer
             Volume  -= 5;
             Console.WriteLine($"Volume is: {Volume}");
         }
+
+        public void Load()
+        {
+            Console.WriteLine("Loading music");
+        }
+
+        public void Lock()
+        {
+            Console.WriteLine("The player is locked");
+        }
+
+        public void Save()
+        {
+            Console.WriteLine("Saving music");
+        }
     }
 }

@@ -8,8 +8,8 @@ namespace AudioPlayer
 {
     class Playlist
     {
-        string path;
-        string title;
-        Song[] Songs;
+        public string path;
+        public string title;
+        public Song[] Songs;
     }
 }

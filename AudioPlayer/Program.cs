@@ -15,6 +15,8 @@ namespace AudioPlayer
             song1.title = "Дым сигарет с ментолом";
             song1.duration = 300;
             song1.Artist = new AudioPlayer.Artist { name = "Нэнси" };
+            song1.path = "somePath";
+            song1.lyrics = "someLyrics";
             var song2 = new AudioPlayer.Song();
             song2.title = "Anaconda";
             song2.duration = 270;
@@ -37,6 +39,7 @@ namespace AudioPlayer
                         break;
                 }
             }
+
 
             Console.ReadKey();
         }

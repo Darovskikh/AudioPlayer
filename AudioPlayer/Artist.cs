@@ -10,6 +10,7 @@ namespace AudioPlayer
     {
         public string name;
         public string nickname;
-        public string counry;
+        public string counry;        
+        public Song Song;
     }
 }
