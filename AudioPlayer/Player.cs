@@ -10,9 +10,11 @@ namespace AudioPlayer
     {
         private int _volume;
         public bool IsLock;
-        private const int _maxVolume = 100;
+        private const int _maxVolume = 300;
         public Song[] Songs;
+        public bool Playing { get; private set; }
         public int Volume
+        
         {
             get
             {
@@ -52,6 +54,11 @@ namespace AudioPlayer
             Console.WriteLine($"Volume is: {Volume}");
         }
 
+        public void VolumeChange(int step)
+        {
+            Volume += step;
+            Console.WriteLine($"Volume is: {Volume}");
+        }
         public void Load()
         {
             Console.WriteLine("Loading music");
@@ -59,12 +66,46 @@ namespace AudioPlayer
 
         public void Lock()
         {
+            IsLock = true;
             Console.WriteLine("The player is locked");
         }
 
+        public void Unlocked()
+        {
+            IsLock = false;
+            Console.WriteLine("The player is unlocked");
+        }
         public void Save()
         {
             Console.WriteLine("Saving music");
+        }
+
+        public bool Start()
+        {
+            if (IsLock != true)
+            {
+                Playing = true;
+                return Playing;
+            }
+            else
+            {
+                Console.WriteLine("The player is locked");
+                return Playing;
+            }
+        }
+
+        public bool Stop()
+        {
+            if (IsLock != true)
+            {
+                Playing = false;
+                return Playing;
+            }
+            else
+            {
+                Console.WriteLine("The player is locked");
+                return Playing;
+            }
         }
     }
 }

@@ -36,11 +36,11 @@ namespace AudioPlayer
                         break;
                     case "p":
                         player.Play();
-                        break;
+                        break;                       
                 }
             }
 
-
+            
             Console.ReadKey();
         }
     }
