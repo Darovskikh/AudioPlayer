@@ -8,7 +8,7 @@ namespace AudioPlayer
 {
     class Player
     {
-        private int _volume;
+        private int _volume;    
         public bool IsLock;
         private const int _maxVolume = 100;
         public Song[] Songs;
