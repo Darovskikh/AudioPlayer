@@ -11,20 +11,14 @@ namespace AudioPlayer
     {
         static void Main(string[] args)
         {
-            var song1 = new AudioPlayer.Song();
-            song1.title = "Дым сигарет с ментолом";
-            song1.duration = 300;
-            song1.Artist = new AudioPlayer.Artist { name = "Нэнси" };
-            var song2 = new AudioPlayer.Song();
-            song2.title = "Anaconda";
-            song2.duration = 270;
-            song2.Artist = new AudioPlayer.Artist { name = "Nicki Minaj" };
-            var player = new Player();
-            player.Songs = new[] { song1, song2 };
-
+            int min,  max, total=0;
+            Player player =new  Player();
+            var songs = CreateSongs(out min, out max, ref total);
+            player.Songs = songs;
+            Console.WriteLine($"min - {min}, max - {max}, total - {total}"); 
             while (true)
             {
-                switch (ReadLine())
+                switch (ReadLine())     
                 {
                     case "up":
                         player.VolumeUP();
@@ -39,6 +33,35 @@ namespace AudioPlayer
             }
 
             Console.ReadKey();
+        }
+
+        private static Song[] CreateSongs(out int min, out int max, ref int total)
+        {
+            Song[] songs = new Song[5];
+            int minDuration=int.MaxValue, maxDuration=int.MinValue, totalDuration=0;            
+            Random random = new Random();
+            for (int i = 0; i < songs.Length; i++)
+            {
+            var song1 = new Song();
+            song1.title = "Song "+i;
+            song1.duration = random .Next(3000);
+            song1.Artist = new Artist ();
+            songs[i] = song1;
+            totalDuration += song1.duration; 
+            if (song1.duration < minDuration )
+                {
+                    minDuration = song1.duration;
+                }
+            if (song1.duration > maxDuration )
+                {
+                    maxDuration = song1.duration;
+                }
+            }
+            total = totalDuration;
+            max = maxDuration;
+            min = minDuration;
+            return songs;
+     
         }
     }
 }

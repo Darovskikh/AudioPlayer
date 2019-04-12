@@ -7,9 +7,17 @@ using System.Threading.Tasks;
 namespace AudioPlayer
 {
     class Artist
-    {
+    {      
         public string name;
         public string nickname;
         public string counry;
+        public Artist()
+        {
+            this.name = "Unknown artist";
+        }
+        public Artist(string name)
+        {
+            this.name = name;
+        }
     }
 }

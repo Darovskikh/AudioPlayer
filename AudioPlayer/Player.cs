@@ -35,11 +35,11 @@ namespace AudioPlayer
         {
             for (int i = 0; i < Songs.Length; i++)
             {
-                Console.WriteLine(Songs[i].title);
-                System.Threading.Thread.Sleep(2000);
+                Console.WriteLine(Songs[i].title+" " + Songs [i].Artist.name+" "+Songs[i].duration  );
+                System.Threading.Thread.Sleep(Songs [i].duration );
             }          
         }
-
+        
         public void VolumeUP()
         {
             Volume += 5;

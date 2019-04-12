@@ -13,6 +13,6 @@ namespace AudioPlayer
         public string path;
         public string lyrics;
         public string genre;
-        public Artist Artist;
+        public Artist Artist;                   
     }
 }
