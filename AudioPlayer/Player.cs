@@ -9,9 +9,9 @@ namespace AudioPlayer
     class Player
     {
         private int _volume;    
-        public bool IsLock;
+        public bool IsLock { get; private set; }
         private const int _maxVolume = 100;
-        public Song[] Songs;
+        public static Song[] Songs { get; set; }
         public int Volume
         {
             get
@@ -35,7 +35,7 @@ namespace AudioPlayer
         {
             for (int i = 0; i < Songs.Length; i++)
             {
-                Console.WriteLine(Songs[i].title+" " + Songs [i].Artist.name+" "+Songs[i].duration  );
+                Console.WriteLine(Songs[i].title+" " + Songs [i].Artist.Name+" "+Songs[i].duration  );
                 System.Threading.Thread.Sleep(Songs [i].duration );
             }          
         }
@@ -50,6 +50,11 @@ namespace AudioPlayer
         {
             Volume  -= 5;
             Console.WriteLine($"Volume is: {Volume}");
+        }
+
+        public static void Add(params Song[] songs)
+        {
+            Songs = songs;
         }
     }
 }
