@@ -32,17 +32,15 @@ namespace AudioPlayer
             //                break;
             //        }
             //    }
-            var song = CreateSong("some name");
-            var song1 = song;
-            Song[] songs = new Song[5];
-            Player.Add(song);
-            Player.Add(song, song1);
-            songs[0] = song;
-            songs[1] = song1;
-            Player.Add(songs);
-            var artist = AddArtist();
-            var album = addAlbum(year:1992,name:"bla bla");
-
+            var song = CreateSong("Lady Gaga");
+            var song1 = CreateSong("Adele");
+            var song2 = CreateSong("Stormae");
+            var song3 = CreateSong("Face");
+            Player.Add(song, song1,song2 ,song3);                                    
+            //Player.SortByTitle(Player.Songs);
+            
+            Player.Shuffle(Player.Songs);
+            Player.Play(false);
 
             Console.ReadKey();
         }
@@ -80,17 +78,17 @@ namespace AudioPlayer
             Song song = new Song();
             Random random = new Random();
             song.Artist = new Artist("some name");
-            song.duration = random.Next(200);
-            song.genre = random.Next(100).ToString();
-            song.lyrics = random.Next(350).ToString();
-            song.path = random.Next(455).ToString();
+            song.Duration = random.Next(200);
+            song.Genre = random.Next(100).ToString();
+            song.Lyrics = random.Next(350).ToString();
+            song.Path = random.Next(455).ToString();
             return song;
         }
 
         private static Song CreateSong(string name)
         {
             var song = CreateSong();
-            song.title = name;
+            song.Title = name;
             return song;
         }
 
@@ -98,11 +96,11 @@ namespace AudioPlayer
         {
             Song song = new Song();
             song.Artist = artist;
-            song.duration = duration;
-            song.title = title;
-            song.genre = genre;
-            song.lyrics = lyrics;
-            song.path = path;
+            song.Duration = duration;
+            song.Title = title;
+            song.Genre = genre;
+            song.Lyrics = lyrics;
+            song.Path = path;
             return song;
         }
 

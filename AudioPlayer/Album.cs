@@ -9,7 +9,7 @@ namespace AudioPlayer
     class Album
     {
         public string Name { get; private set; }
-        public string path;
+        public string Path { get; private set; }
         public int Year { get; private set; }
 
         public Album(string name, int year)
