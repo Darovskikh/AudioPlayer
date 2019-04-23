@@ -8,16 +8,16 @@ namespace AudioPlayer
 {
     class Artist
     {      
-        public string name;
-        public string nickname;
-        public string counry;
+        public string Name { get; private set; }
+        public string nickname { get; private set; }
+        public string counry { get; private set; }
         public Artist()
         {
-            this.name = "Unknown artist";
+            Name = "Unknown artist";
         }
         public Artist(string name)
         {
-            this.name = name;
+            Name = name;
         }
     }
 }
