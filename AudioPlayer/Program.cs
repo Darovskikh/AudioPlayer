@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Console;
@@ -37,7 +38,8 @@ namespace AudioPlayer
             var song2 = CreateSong("Alors on dance", 230, Genre.Rap, "bla bla", " la la", new Artist("Stormae"), new Album("Cheese", 2010)); ;
             var song3 = CreateSong("Я роняю Pапад", 180, Genre.RussianRap, "bla bla", " la la", new Artist("Face"), new Album("Single", 2017));
             Player.Add(song, song1, song2, song3);
-            //Player.SortByTitle(Player.Songs);
+            //Player.Songs = Player.Songs.SortByTitle();
+            Player.Songs = Player.Songs.ShuffleSongs();            
 
             //Player.Shuffle(Player.Songs);
             Song.Like(Player.Songs[1]);

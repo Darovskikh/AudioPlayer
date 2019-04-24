@@ -82,28 +82,7 @@ namespace AudioPlayer
             }
         }
 
-        public static void SortByTitle(List<Song> songs)
-        {
-            List<string> titles = new List<string>();
-            List<Song> sortedSongs = new List<Song>();
-            foreach (Song song in songs)
-            {
-                titles.Add(song.Title);
-            }
-
-            titles.Sort();
-            foreach (string title in titles)
-            {
-                foreach (Song song in songs)
-                {
-                    if (title == song.Title)
-                    {
-                        sortedSongs.Add(song);
-                    }
-                }
-            }
-            Songs = sortedSongs;
-        }
+        
         public void VolumeUP()
         {
             Volume += 5;
@@ -125,33 +104,7 @@ namespace AudioPlayer
 
         }
 
-        public static void Shuffle(List<Song> songs)
-        {
-            Random random = new Random();
-            List<Song> shuffledSongs = new List<Song>();
-            List<int> numbers = new List<int>();
-            int j = 0, i = 0, p = 0;
-            foreach (Song song in songs)
-            {
-                while (p != 1)
-                {
-                    i = random.Next(0, songs.Count);
-                    if (numbers.Contains(i))
-                    {
-                        p = 0;
-                    }
-                    else
-                    {
-                        numbers.Add(i);
-                        p = 1;
-                    }
-                }
-
-                shuffledSongs.Add(songs[i]);
-                p = 0;
-            }
-            Songs = shuffledSongs;
-        }
+       
 
         public static void WriteSongsList(List<Song> songs)
         {
@@ -180,14 +133,23 @@ namespace AudioPlayer
         }
         public static void WriteSongData(Song song, ConsoleColor color)
         {
-            var songData = GetSongData(song);
+            //var songData = GetSongData(song);
+            //Console.ForegroundColor = color;
+            //Console.WriteLine($"Title - {songData.title.CutStringSymbols()}");
+            //Console.ResetColor();
+            //Console.WriteLine($"Duration - {songData.minutes}.{songData.seconds}");
+            //Console.WriteLine($"Artist - {songData.artistName}");
+            //Console.WriteLine($"Album - {songData.album}");
+            //Console.WriteLine($"Year - {songData.year}");
+            //Console.WriteLine();
+            var (title, minutes, seconds, artistName, album, year ) = song;
             Console.ForegroundColor = color;
-            Console.WriteLine($"Title - {songData.title}");
+            Console.WriteLine($"Title - {title.CutStringSymbols()}");
             Console.ResetColor();
-            Console.WriteLine($"Duration - {songData.minutes}.{songData.seconds}");
-            Console.WriteLine($"Artist - {songData.artistName}");
-            Console.WriteLine($"Album - {songData.album}");
-            Console.WriteLine($"Year - {songData.year}");
+            Console.WriteLine($"Duration - {minutes}.{seconds}");
+            Console.WriteLine($"Artist - {artistName}");
+            Console.WriteLine($"Album - {album}");
+            Console.WriteLine($"Year - {year}");
             Console.WriteLine();
         }
         public static (string title, int minutes, int seconds, string artistName, string album, int year, bool playing) GetSongData(Song song)
@@ -210,5 +172,6 @@ namespace AudioPlayer
         }
 
     }
+
 
 }

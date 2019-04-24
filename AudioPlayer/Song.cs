@@ -27,6 +27,16 @@ namespace AudioPlayer
         {
             song.LikeStatus = false;
         }
+        public void Deconstruct(out string title, out int minutes, out int seconds, out string artistName,
+            out string album, out int year)
+        {
+            title = Title;
+            minutes = Duration / 60;
+            seconds = Duration % 60;
+            artistName = Artist.Name;
+            album = Album.Name;
+            year = Album.Year;
+        }
     }
     public enum Genre
     {
