@@ -32,15 +32,19 @@ namespace AudioPlayer
             //                break;
             //        }
             //    }
-            var song = CreateSong("Lady Gaga");
-            var song1 = CreateSong("Adele");
-            var song2 = CreateSong("Stormae");
-            var song3 = CreateSong("Face");
-            Player.Add(song, song1,song2 ,song3);                                    
+            var song = CreateSong("Paparazzi", 250, Genre.Pop, "bla bla", " la la", new Artist("Lady Gaga"), new Album("International EP", 2009));
+            var song1 = CreateSong("Скользкие улицы", 200, Genre.RussianRock, "bla bla", " la la", new Artist("Би-2"), new Album("Иномарки", 2004));
+            var song2 = CreateSong("Alors on dance", 230, Genre.Rap, "bla bla", " la la", new Artist("Stormae"), new Album("Cheese", 2010)); ;
+            var song3 = CreateSong("Я роняю Pапад", 180, Genre.RussianRap, "bla bla", " la la", new Artist("Face"), new Album("Single", 2017));
+            Player.Add(song, song1, song2, song3);
             //Player.SortByTitle(Player.Songs);
-            
-            Player.Shuffle(Player.Songs);
-            Player.Play(false);
+
+            //Player.Shuffle(Player.Songs);
+            Song.Like(Player.Songs[1]);
+            Song.Dislike(Player.Songs[3]);
+            List<Song> songs = Player.FilterByGrenre(Player.Songs, Genre.Pop);
+            Player.Play(songs, false);
+
 
             Console.ReadKey();
         }
@@ -73,28 +77,28 @@ namespace AudioPlayer
         //    return songs;     
         //}
 
-        private static Song CreateSong()
+        //private static Song CreateSong()
+        //{
+        //    Song song = new Song();
+        //    Random random = new Random();
+        //    song.Artist = new Artist("some name");
+        //    song.Duration = random.Next(200);            
+        //    song.Lyrics = random.Next(350).ToString();
+        //    song.Path = random.Next(455).ToString();
+        //    return song;
+        //}
+
+        //private static Song CreateSong(string name)
+        //{
+        //    var song = CreateSong();
+        //    song.Title = name;
+        //    return song;
+        //}
+
+        private static Song CreateSong(string title, int duration, Genre genre, string lyrics, string path, Artist artist, Album album)
         {
             Song song = new Song();
-            Random random = new Random();
-            song.Artist = new Artist("some name");
-            song.Duration = random.Next(200);
-            song.Genre = random.Next(100).ToString();
-            song.Lyrics = random.Next(350).ToString();
-            song.Path = random.Next(455).ToString();
-            return song;
-        }
-
-        private static Song CreateSong(string name)
-        {
-            var song = CreateSong();
-            song.Title = name;
-            return song;
-        }
-
-        private static Song CreateSong(string title, int duration, string genre, string lyrics, string path, Artist artist)
-        {
-            Song song = new Song();
+            song.Album = album;
             song.Artist = artist;
             song.Duration = duration;
             song.Title = title;
@@ -105,7 +109,7 @@ namespace AudioPlayer
         }
 
 
-        private static Artist AddArtist (string name ="Unknown Artist")
+        private static Artist AddArtist(string name = "Unknown Artist")
         {
             Artist artist = new Artist(name);
             return artist;
@@ -113,7 +117,7 @@ namespace AudioPlayer
 
         private static Album addAlbum(string name = "Unknown album", int year = 0)
         {
-            Album album = new Album(name,year);
+            Album album = new Album(name, year);
             return album;
         }
     }
