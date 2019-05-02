@@ -9,8 +9,8 @@ namespace AudioPlayer
     class Artist
     {      
         public string Name { get; private set; }
-        public string nickname { get; private set; }
-        public string counry { get; private set; }
+        public string Nickname { get; private set; }
+        public string Counry { get; private set; }
         public Artist()
         {
             Name = "Unknown artist";
