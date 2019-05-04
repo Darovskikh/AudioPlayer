@@ -33,19 +33,21 @@ namespace AudioPlayer
             //                break;
             //        }
             //    }
+
+            Player player = new Player(new RandomSkin());
             var song = CreateSong("Paparazzi", 250, Genre.Pop, "bla bla", " la la", new Artist("Lady Gaga"), new Album("International EP", 2009));
             var song1 = CreateSong("Скользкие улицы", 200, Genre.RussianRock, "bla bla", " la la", new Artist("Би-2"), new Album("Иномарки", 2004));
             var song2 = CreateSong("Alors on dance", 230, Genre.Rap, "bla bla", " la la", new Artist("Stormae"), new Album("Cheese", 2010)); ;
             var song3 = CreateSong("Я роняю Запад", 180, Genre.RussianRap, "bla bla", " la la", new Artist("Face"), new Album("Single", 2017));
             Player.Add(song, song1, song2, song3);
             //Player.Songs = Player.Songs.SortByTitle();
-            Player.Songs = Player.Songs.ShuffleSongs();            
+            Player.Songs = Player.Songs.ShuffleSongs();
 
             //Player.Shuffle(Player.Songs);
             Song.Like(Player.Songs[1]);
             Song.Dislike(Player.Songs[3]);
-            List<Song> songs = Player.FilterByGrenre(Player.Songs, Genre.Pop);
-            Player.Play(songs, false);
+            //List<Song> songs = Player.FilterByGrenre(Player.Songs, Genre.Pop);
+            Player.Play(Player.Songs, false);
 
 
             Console.ReadKey();

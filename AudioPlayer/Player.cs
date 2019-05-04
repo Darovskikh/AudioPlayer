@@ -14,16 +14,12 @@ namespace AudioPlayer
 {
     class Player
     {
+        private static Skin Skin { get; set; }
         public static bool Loop { get; set; }
         private int _volume;
         public bool IsLock { get; private set; }
         private const int _maxVolume = 100;
-        private static List<Song> _songs = new List<Song>();
-        public static List<Song> Songs
-        {
-            get { return _songs; }
-            set { _songs = value; }
-        }
+        public static List<Song> Songs { get; set; } = new List<Song>();
         public int Volume
         {
             get
@@ -43,6 +39,12 @@ namespace AudioPlayer
                 else { _volume = value; }
             }
         }
+
+        public Player(Skin skin)
+        {
+            Skin = skin;
+        }
+
         public static void Play(List<Song> songs, bool loop)
         {
             foreach (Song song in songs)
@@ -60,11 +62,10 @@ namespace AudioPlayer
                     song.Playing = true;
                     Player.WriteSongsList(songs);
                     song.Playing = false;
-                    System.Threading.Thread.Sleep(song.Duration + 1500);
+                    System.Threading.Thread.Sleep(song.Duration + 2000);
                 }
 
             }
-
         }
         public static void WriteLyrics(Song song)
         {
@@ -74,25 +75,27 @@ namespace AudioPlayer
                 sentence = song.Title.Remove(13);
                 sentence = sentence + "...";
             }
-            Console.WriteLine(sentence);
+            //Console.WriteLine(sentence);
+            Skin.Render(sentence);
             string[] p = song.Lyrics.Split(';');
             foreach (string str in p)
             {
-                Console.WriteLine(str);
+                //Console.WriteLine(str);
+                Skin.Render(str);
             }
         }
-
-        
         public void VolumeUP()
         {
             Volume += 5;
-            Console.WriteLine($"Volume is: {Volume}");
+            //Console.WriteLine($"Volume is: {Volume}");
+            Skin.Render($"Volume is: {Volume}");
         }
 
         public void VolumeDown()
         {
             Volume -= 5;
-            Console.WriteLine($"Volume is: {Volume}");
+            //Console.WriteLine($"Volume is: {Volume}");
+            Skin.Render($"Volume is: {Volume}");
         }
 
         public static void Add(params Song[] songs)
@@ -103,9 +106,6 @@ namespace AudioPlayer
             }
 
         }
-
-       
-
         public static void WriteSongsList(List<Song> songs)
         {
             foreach (Song song in songs)
@@ -142,14 +142,18 @@ namespace AudioPlayer
             //Console.WriteLine($"Album - {songData.album}");
             //Console.WriteLine($"Year - {songData.year}");
             //Console.WriteLine();
-            var (title, minutes, seconds, artistName, album, year ) = song;
-            Console.ForegroundColor = color;
-            Console.WriteLine($"Title - {title.CutStringSymbols()}");
+            var (title, minutes, seconds, artistName, album, year) = song;
+            //Console.WriteLine($"Title - {title.CutStringSymbols()}");
+            Skin.Render($"Title - {title.CutStringSymbols()}", color);
             Console.ResetColor();
-            Console.WriteLine($"Duration - {minutes}.{seconds}");
-            Console.WriteLine($"Artist - {artistName}");
-            Console.WriteLine($"Album - {album}");
-            Console.WriteLine($"Year - {year}");
+            //Console.WriteLine($"Duration - {minutes}.{seconds}");
+            Skin.Render($"Duration - {minutes}.{seconds}");
+            //Console.WriteLine($"Artist - {artistName}");
+            Skin.Render($"Artist - {artistName}");
+            //Console.WriteLine($"Album - {album}");
+            Skin.Render($"Album - {album}");
+            //Console.WriteLine($"Year - {year}");
+            Skin.Render($"Year - {year}");
             Console.WriteLine();
         }
         public static (string title, int minutes, int seconds, string artistName, string album, int year, bool playing) GetSongData(Song song)
