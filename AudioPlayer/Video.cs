@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AudioPlayer
 {
-    class Song : PlayingItem<Song>
+    class Video : PlayingItem< Video>
     {
-        public string Lyrics { get; set; }
-        public Artist Artist { get; set; }
+        public string Subtitels { get; set; }
+        public Artist Producer { get; set; }
         public Album Album { get; set; }
-        public GenreSong Genre { get; set; }
+        public GenreVideo Genre { get; set; }
 
         public void Deconstruct(out string title, out int minutes, out int seconds, out string artistName,
             out string album, out int year)
@@ -24,10 +23,8 @@ namespace AudioPlayer
             album = Album.Name;
             year = Album.Year;
         }
-        
     }
-
-    public enum GenreSong
+    public enum GenreVideo
     {
         Pop,
         Rock,
@@ -37,3 +34,4 @@ namespace AudioPlayer
         RussianRap
     }
 }
+
