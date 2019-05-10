@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace AudioPlayer
 {
-    static class Shuffle
+    static class Shuffle 
     {
-        public static List<Song> ShuffleSongs(this List<Song> songs)
+        public static List<T> ShuffleSongs<T>(this List<T> items)
         {
             Random random = new Random();
-            List<Song> shuffledSongs = new List<Song>();
+            List<T> shuffledItems = new List<T>();
             List<int> numbers = new List<int>();
             int j = 0, i = 0, p = 0;
-            foreach (Song song in songs)
+            foreach (T item in items)
             {
                 while (p != 1)
                 {
-                    i = random.Next(0, songs.Count);
+                    i = random.Next(0, items.Count);
                     if (numbers.Contains(i))
                     {
                         p = 0;
@@ -30,10 +30,10 @@ namespace AudioPlayer
                     }
                 }
 
-                shuffledSongs.Add(songs[i]);
+                shuffledItems.Add(items[i]);
                 p = 0;
             }
-            return shuffledSongs;
+            return shuffledItems;
         }
     }
 }

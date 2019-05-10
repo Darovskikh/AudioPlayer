@@ -53,7 +53,7 @@
     <Compile Include="ColorSkin.cs" />
     <Compile Include="CutString.cs" />
     <Compile Include="GenericPlayer.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="SongPlayer.cs" />
     <Compile Include="PlayingItem.cs" />
     <Compile Include="Playlist.cs" />
     <Compile Include="Program.cs" />
@@ -64,6 +64,7 @@
     <Compile Include="Song.cs" />
     <Compile Include="Sorting.cs" />
     <Compile Include="Video.cs" />
+    <Compile Include="VideoPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

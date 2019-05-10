@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace AudioPlayer
 {
-    public abstract class PlayingItem<T>
+    public class PlayingItem<T>
     {
         public bool Playing { get; set; }
         public bool? LikeStatus { get; set; }
         public int Duration { get; set; }
         public string Title { get; set; }
         public string Path { get; set; }
-        public Genre Genre { get; set; }
+        public static List<PlayingItem<T>> PlayingItems { get; set; } = new List<PlayingItem<T>>();
         public static void Like(PlayingItem<T> item)
         {
             item.LikeStatus = true;
@@ -24,6 +24,6 @@ namespace AudioPlayer
         }
 
     }
-    
+
 }
 

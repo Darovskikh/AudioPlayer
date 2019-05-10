@@ -8,27 +8,27 @@ namespace AudioPlayer
 {
     static class Sorting
     {
-        public static List<Song> SortByTitle(this List<Song> songs)
+        public static List<PlayingItem<T>> SortByTitle<T>(this List<PlayingItem<T>> items)
         {
             List<string> titles = new List<string>();
-            List<Song> sortedSongs = new List<Song>();
-            foreach (Song song in songs)
+            List<PlayingItem<T>> sortedItems = new List<PlayingItem<T>>();
+            foreach (PlayingItem<T> item in items)
             {
-                titles.Add(song.Title);
+                titles.Add(item.Title);
             }
 
             titles.Sort();
             foreach (string title in titles)
             {
-                foreach (Song song in songs)
+                foreach (PlayingItem<T> item in items)
                 {
-                    if (title == song.Title)
+                    if (title == item.Title)
                     {
-                        sortedSongs.Add(song);
+                        sortedItems.Add(item);
                     }
                 }
             }
-            return sortedSongs;
+            return sortedItems;
         }
     }
 }
