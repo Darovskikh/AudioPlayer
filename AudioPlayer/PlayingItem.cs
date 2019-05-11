@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AudioPlayer
 {
-    public class PlayingItem<T>
+    public abstract class PlayingItem<T>
     {
         public bool Playing { get; set; }
         public bool? LikeStatus { get; set; }
