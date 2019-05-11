@@ -34,7 +34,7 @@ namespace AudioPlayer
             //        }
             //    }
             
-            SongPlayer player = new SongPlayer(new RandomSkin());
+            SongPlayer player = new SongPlayer(new ColorSkin("yellow"));
             var song = CreateSong("Paparazzi", 250, GenreSong.Pop, "bla bla", " la la", new Artist("Lady Gaga"), new Album("International EP", 2009));
             var song1 = CreateSong("Скользкие улицы", 200, GenreSong.RussianRock, "bla bla", " la la", new Artist("Би-2"), new Album("Иномарки", 2004));
             var song2 = CreateSong("Alors on dance", 230, GenreSong.Rap, "bla bla", " la la", new Artist("Stormae"), new Album("Cheese", 2010)); ;
@@ -42,15 +42,16 @@ namespace AudioPlayer
             SongPlayer.Add(song, song1, song2, song3);
             
             
-            PlayingItem<Song>.PlayingItems =PlayingItem<Song>.PlayingItems.SortByTitle();
+            //SongPlayer.Items=SongPlayer.Items.SortByTitle();
             SongPlayer.Items = SongPlayer.Items.ShuffleSongs();
 
             
             Song.Like(SongPlayer.Items[1]);
             Song.Dislike(SongPlayer.Items[3]);
-            //List<Song> songs = Player.FilterByGrenre(Player.Songs, Genre.Pop);
+            //SongPlayer.Items = player.FilterByGenre(SongPlayer.Items, GenreSong.Rap);
             player.Play(SongPlayer.Items, false);
 
+            //VideoPlayer player = new VideoPlayer(new ColorSkin());
 
             Console.ReadKey();
         }
@@ -111,21 +112,7 @@ namespace AudioPlayer
             song.Genre = genre;
             song.Lyrics = lyrics;
             song.Path = path;
-            PlayingItem<Song>.PlayingItems.Add(song);
             return song;
-        }
-
-
-        private static Artist AddArtist(string name = "Unknown Artist")
-        {
-            Artist artist = new Artist(name);
-            return artist;
-        }
-
-        private static Album addAlbum(string name = "Unknown album", int year = 0)
-        {
-            Album album = new Album(name, year);
-            return album;
         }
     }
 }

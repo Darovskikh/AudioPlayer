@@ -11,7 +11,6 @@ namespace AudioPlayer
         public VideoPlayer(Skin skin) : base(skin)
         {
         }
-
         public override void Play(List<Video> items, bool loop)
         {
             foreach (Video video in items)
@@ -33,7 +32,6 @@ namespace AudioPlayer
                 }
             }
         }
-
         public override void WriteItemList(List<Video> items)
         {
             foreach (Video video  in items)
@@ -59,7 +57,6 @@ namespace AudioPlayer
                 }
             }
         }
-
         public override List<Video> FilterByGenre(List<Video> items, GenreVideo genre)
         {
             List<Video> filteredSongs = new List<Video>();

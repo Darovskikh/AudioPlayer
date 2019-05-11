@@ -48,7 +48,7 @@ namespace AudioPlayer
             var (title, minutes, seconds, artistName, album, year) = item;
             //Console.WriteLine($"Title - {title.CutStringSymbols()}");
             Skin.Render($"Title - {title.CutStringSymbols()}", color);
-            Console.ResetColor();
+            //Console.ResetColor();
             //Console.WriteLine($"Duration - {minutes}.{seconds}");
             Skin.Render($"Duration - {minutes}.{seconds}");
             //Console.WriteLine($"Artist - {artistName}");
@@ -59,8 +59,6 @@ namespace AudioPlayer
             Skin.Render($"Year - {year}");
             Console.WriteLine();
         }
-
-       
         public override void Play(List<Song> items, bool loop)
         {
             foreach (Song song in items)
@@ -82,7 +80,6 @@ namespace AudioPlayer
                 }
             }
         }
-
         public override void WriteItemList(List<Song> items)
         {
             foreach (Song song in items)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AudioPlayer
 {
-    public abstract class GenericPlayer <T,V>
+    public abstract class GenericPlayer <T,TV>
     {
         protected static Skin Skin { get; set; }
         public static bool Loop { get; set; }
@@ -20,7 +20,7 @@ namespace AudioPlayer
             {
                 return _volume;
             }
-            private set  // считывается только в рамках класса            
+            private set           
             {
                 if (value > _maxVolume)
                 {
@@ -61,7 +61,7 @@ namespace AudioPlayer
             }
         }
         public abstract void WriteItemList(List<T> items);
-        public abstract List<T> FilterByGenre(List<T> items,V genre);
+        public abstract List<T> FilterByGenre(List<T> items,TV genre);
         public abstract void WriteItemData(T item, ConsoleColor color);
     }
 }

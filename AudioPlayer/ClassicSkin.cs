@@ -22,6 +22,7 @@ namespace AudioPlayer
         {
             Console.ForegroundColor = color;
             Console.WriteLine(text);
+            Console.ResetColor();
         }
     }
 }

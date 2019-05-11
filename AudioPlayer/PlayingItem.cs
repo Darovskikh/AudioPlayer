@@ -13,7 +13,6 @@ namespace AudioPlayer
         public int Duration { get; set; }
         public string Title { get; set; }
         public string Path { get; set; }
-        public static List<PlayingItem<T>> PlayingItems { get; set; } = new List<PlayingItem<T>>();
         public static void Like(PlayingItem<T> item)
         {
             item.LikeStatus = true;

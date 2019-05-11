@@ -24,9 +24,7 @@ namespace AudioPlayer
             album = Album.Name;
             year = Album.Year;
         }
-        
     }
-
     public enum GenreSong
     {
         Pop,

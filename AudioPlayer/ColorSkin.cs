@@ -31,13 +31,14 @@ namespace AudioPlayer
         {
             Console.ForegroundColor = _color;
             Console.WriteLine(text);
+            Console.ResetColor();
 
         }
         public override void Render(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.WriteLine(text);
-
+            Console.ResetColor();
         }
 
         protected void GetColor(string clr)
