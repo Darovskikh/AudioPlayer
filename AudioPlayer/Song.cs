@@ -7,15 +7,29 @@ using System.Threading.Tasks;
 
 namespace AudioPlayer
 {
-    class Song
+    [Serializable]
+    public class Song
     {
-        public bool Playing { get; set; }
+        private Genre _genre;
+        [NonSerialized] // все равно сериализует playing
+        private bool _playing;
+
+        public bool Playing
+        {
+            get => _playing;
+            set => _playing = value;
+        }
+
         public bool? LikeStatus { get; set; }
         public int Duration { get; set; }
         public string Title { get; set; }
         public string Path { get; set; }
         public string Lyrics { get; set; }
-        public Genre Genre { get; set; }
+        public string Genre
+        {
+            get { return _genre.ToString(); }
+            set { _genre = (Genre) Enum.Parse(typeof(Genre), value); }
+        }
         public Artist Artist { get; set; }
         public Album Album { get; set; }
         public static void Like(Song song)

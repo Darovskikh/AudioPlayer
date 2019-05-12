@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Microsoft.SqlServer.Server;
+using TagLib;
+using File = TagLib.File;
 
 namespace AudioPlayer
 {
     class Player
     {
+        public List< Playlist> Playlists { get; private set; } = new List<Playlist>();
         private static Skin Skin { get; set; }
         public static bool Loop { get; set; }
         private int _volume;
@@ -98,14 +104,66 @@ namespace AudioPlayer
             Skin.Render($"Volume is: {Volume}");
         }
 
-        public static void Add(params Song[] songs)
+        public void Clear()
         {
-            foreach (Song song in songs)
-            {
-                Songs.Add(song);
-            }
-
+            Songs.Clear();
+            Skin.Render("Cписок песен очищен");
         }
+
+        public void Load()
+        {
+            List<FileInfo> fileInfos = new List<FileInfo>();
+            Skin.Render("Укажите путь к папке с музыкой");
+            string path = Console.ReadLine();
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            foreach (var file in directoryInfo.GetFiles("*.mp3"))
+            {
+                fileInfos.Add(file);
+            }
+            
+            foreach (var file in fileInfos)
+            {
+                var audio = File.Create(file.FullName);
+                Songs.Add( new Song(){Album = new Album(audio?.Tag.Album,(int)audio.Tag?.Year),Artist = new Artist(audio.Tag?.FirstPerformer),Duration = (int)audio.Properties.Duration.TotalSeconds,Genre = audio.Tag?.FirstGenre,Lyrics = audio.Tag?.Lyrics,Title = audio.Tag?.Title,Path = audio.Name});
+            }
+        }
+
+        public void SaveAsPlaylist()
+        {
+            Skin.Render("Введите название плейлиста");
+            Playlist playlist = new Playlist(Console.ReadLine(),Songs);
+            Playlists.Add(playlist);
+            XmlSerializer xmlSerializer = new XmlSerializer(Playlists.GetType());
+            using (FileStream fs = new FileStream("Playlists.xml", FileMode.OpenOrCreate))
+            {
+                playlist.Path = fs.Name;
+                xmlSerializer.Serialize(fs,Playlists);
+            }
+           
+        }
+
+        public void LoadPlayList()
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(Playlists.GetType());
+            using (FileStream fs = new FileStream("Playlists.xml", FileMode.Open))
+            {
+                Playlists = (List<Playlist>) xmlSerializer.Deserialize(fs);
+            }
+            Skin.Render("Введите название плейлиста");
+            string name = Console.ReadLine();
+            foreach (var playlist in Playlists)
+            {
+                if (name == playlist.Title)
+                {
+                    Songs = playlist.Songs;
+                }
+                else
+                {
+                    Skin.Render("Not found");
+                }
+            }
+        }
+
         public static void WriteSongsList(List<Song> songs)
         {
             foreach (Song song in songs)
@@ -162,7 +220,7 @@ namespace AudioPlayer
                 song.Album.Year, song.Playing);
         }
 
-        public static List<Song> FilterByGrenre(List<Song> songs, Genre genre)
+        public static List<Song> FilterByGrenre(List<Song> songs, string genre)
         {
             List<Song> filteredSongs = new List<Song>();
             foreach (Song song in songs)

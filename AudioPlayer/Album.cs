@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace AudioPlayer
 {
-    class Album
+    [Serializable]
+    public class Album
     {
-        public string Name { get; private set; }
-        public string Path { get; private set; }
-        public int Year { get; private set; }
+        public string Name { get; set; }
+        public string Path { get;  set; }
+        public int Year { get;  set; }
 
+        public Album() { }
         public Album(string name, int year)
         {
             Name = name;
