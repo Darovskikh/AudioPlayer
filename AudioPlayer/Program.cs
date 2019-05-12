@@ -155,14 +155,14 @@ namespace AudioPlayer
                 xmlSerializer.Serialize(fs,Player.Songs);
                 Player.Songs.Clear();
                 WriteLine($"Количество песен после сериализации - {Player.Songs.Count}");
-               
+                fs.Flush();
             }
             using (FileStream fs = new FileStream("Songs.xml", FileMode.OpenOrCreate))
             {
                 Player.Songs = (List<Song>)xmlSerializer.Deserialize(fs);
                 WriteLine($"Количество песен после десериализации - {Player.Songs.Count}");
             }
-            
+
         }
 
     }
