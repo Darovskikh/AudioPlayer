@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace AudioPlayer
 {
-    class Song
+    [Serializable]
+    public class Song
     {
         public bool Playing { get; set; }
         public bool? LikeStatus { get; set; }
@@ -18,6 +19,7 @@ namespace AudioPlayer
         public Genre Genre { get; set; }
         public Artist Artist { get; set; }
         public Album Album { get; set; }
+
         public static void Like(Song song)
         {
             song.LikeStatus = true;

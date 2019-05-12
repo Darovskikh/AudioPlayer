@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using static System.Console;
+using System.Xml.Serialization;
 
 namespace AudioPlayer
 {
@@ -35,22 +38,28 @@ namespace AudioPlayer
             //    }
 
             Player player = new Player(new RandomSkin());
-            var song = CreateSong("Paparazzi", 250, Genre.Pop, "bla bla", " la la", new Artist("Lady Gaga"), new Album("International EP", 2009));
-            var song1 = CreateSong("Скользкие улицы", 200, Genre.RussianRock, "bla bla", " la la", new Artist("Би-2"), new Album("Иномарки", 2004));
-            var song2 = CreateSong("Alors on dance", 230, Genre.Rap, "bla bla", " la la", new Artist("Stormae"), new Album("Cheese", 2010)); ;
-            var song3 = CreateSong("Я роняю Запад", 180, Genre.RussianRap, "bla bla", " la la", new Artist("Face"), new Album("Single", 2017));
+            var song = CreateSong("Paparazzi", 250, Genre.Pop, "bla bla", " la la", new Artist("Lady Gaga"),
+                new Album("International EP", 2009));
+            var song1 = CreateSong("Скользкие улицы", 200, Genre.RussianRock, "bla bla", " la la", new Artist("Би-2"),
+                new Album("Иномарки", 2004));
+            var song2 = CreateSong("Alors on dance", 230, Genre.Rap, "bla bla", " la la", new Artist("Stormae"),
+                new Album("Cheese", 2010));
+            ;
+            var song3 = CreateSong("Я роняю Запад", 180, Genre.RussianRap, "bla bla", " la la", new Artist("Face"),
+                new Album("Single", 2017));
             Player.Add(song, song1, song2, song3);
+            Song[] songs = {song, song1, song2, song3};
             //Player.Songs = Player.Songs.SortByTitle();
-            Player.Songs = Player.Songs.ShuffleSongs();
+            //Player.Songs = Player.Songs.ShuffleSongs();
 
             //Player.Shuffle(Player.Songs);
-            Song.Like(Player.Songs[1]);
-            Song.Dislike(Player.Songs[3]);
+            //Song.Like(Player.Songs[1]);
+            //Song.Dislike(Player.Songs[3]);
             //List<Song> songs = Player.FilterByGrenre(Player.Songs, Genre.Pop);
-            Player.Play(Player.Songs, false);
-
-
-            Console.ReadKey();
+            //Player.Play(Player.Songs, false);
+            //ConsoleSerlz();
+            FileSeriz();
+            ReadKey();
         }
 
         //private static Song[] CreateSongs(out int min, out int max, ref int total)
@@ -99,7 +108,8 @@ namespace AudioPlayer
         //    return song;
         //}
 
-        private static Song CreateSong(string title, int duration, Genre genre, string lyrics, string path, Artist artist, Album album)
+        private static Song CreateSong(string title, int duration, Genre genre, string lyrics, string path,
+            Artist artist, Album album)
         {
             Song song = new Song();
             song.Album = album;
@@ -112,17 +122,48 @@ namespace AudioPlayer
             return song;
         }
 
-
-        private static Artist AddArtist(string name = "Unknown Artist")
+        public static void ConsoleSerlz()
         {
-            Artist artist = new Artist(name);
-            return artist;
+            XmlSerializer xmlSerializer = new XmlSerializer(Player.Songs.GetType());
+            string result;
+            using (StringWriter sw = new StringWriter())
+            {
+                xmlSerializer.Serialize(sw, Player.Songs);
+                WriteLine(sw);
+
+                result = sw.ToString();
+                Player.Songs.Clear();
+                WriteLine();
+                WriteLine($"Количество песен после сериализации - {Player.Songs.Count}");
+            }
+
+            using (StringReader sr = new StringReader(result))
+            {
+                Player.Songs = (List<Song>) xmlSerializer.Deserialize(sr);
+            }
+
+            WriteLine();
+            WriteLine($"Количество песен после десериализации - {Player.Songs.Count}");
+            ReadKey();
         }
 
-        private static Album addAlbum(string name = "Unknown album", int year = 0)
+        public static void FileSeriz()
         {
-            Album album = new Album(name, year);
-            return album;
+            XmlSerializer xmlSerializer = new XmlSerializer(Player.Songs.GetType());
+            using (FileStream fs = new FileStream("Songs.xml", FileMode.OpenOrCreate))
+            {
+                xmlSerializer.Serialize(fs,Player.Songs);
+                Player.Songs.Clear();
+                WriteLine($"Количество песен после сериализации - {Player.Songs.Count}");
+               
+            }
+            using (FileStream fs = new FileStream("Songs.xml", FileMode.OpenOrCreate))
+            {
+                Player.Songs = (List<Song>)xmlSerializer.Deserialize(fs);
+                WriteLine($"Количество песен после десериализации - {Player.Songs.Count}");
+            }
+            
         }
+
     }
 }
