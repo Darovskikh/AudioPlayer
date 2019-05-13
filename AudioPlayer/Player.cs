@@ -116,7 +116,7 @@ namespace AudioPlayer
             Skin.Render("Укажите путь к папке с музыкой");
             string path = Console.ReadLine();
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
-            foreach (var file in directoryInfo.GetFiles("*.mp3"))
+            foreach (var file in directoryInfo.GetFiles("*.wav"))
             {
                 fileInfos.Add(file);
             }

@@ -28,7 +28,19 @@ namespace AudioPlayer
         public string Genre
         {
             get { return _genre.ToString(); }
-            set { _genre = (Genre) Enum.Parse(typeof(Genre), value); }
+            set
+            {
+                if (value != null)
+                {
+                    _genre = (Genre)Enum.Parse(typeof(Genre), value);
+                }
+                else
+                {
+                    value = "NotSpecified";
+                    _genre = (Genre)Enum.Parse(typeof(Genre), value);
+                }
+                
+            }
         }
         public Artist Artist { get; set; }
         public Album Album { get; set; }
@@ -54,6 +66,7 @@ namespace AudioPlayer
     }
     public enum Genre
     {
+        NotSpecified,
         Pop,
         Rock,
         Rap,
