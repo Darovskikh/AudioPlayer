@@ -149,19 +149,16 @@ namespace AudioPlayer
             {
                 Playlists = (List<Playlist>) xmlSerializer.Deserialize(fs);
             }
-            Skin.Render("Введите название плейлиста");
-            string name = Console.ReadLine();
+            Skin.Render("Введите номер плейлиста для воспроизведения");
+            Skin.Render("");
+            int i = 1;
             foreach (var playlist in Playlists)
             {
-                if (name == playlist.Title)
-                {
-                    Songs = playlist.Songs;
-                }
-                else
-                {
-                    Skin.Render("Not found");
-                }
+                Skin .Render($"{i}. {playlist.Title}");
             }
+            Skin.Render("");
+            int number = int.Parse(Console.ReadLine());
+            Songs = Playlists[number - 1].Songs;
         }
 
         public static void WriteSongsList(List<Song> songs)

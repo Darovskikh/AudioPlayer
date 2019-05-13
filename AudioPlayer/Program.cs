@@ -34,9 +34,9 @@ namespace AudioPlayer
             //        }
             //    }
             Player player = new Player(new ClassicSkin());
-            player.Load();
+            //player.Load();
             //player.SaveAsPlaylist();
-            //player.LoadPlayList();
+            player.LoadPlayList();
             Player.Play(Player.Songs,false);
             Console.ReadKey();
         }
