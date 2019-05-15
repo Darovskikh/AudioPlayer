@@ -155,6 +155,7 @@ namespace AudioPlayer
             foreach (var playlist in Playlists)
             {
                 Skin .Render($"{i}. {playlist.Title}");
+                i++;
             }
             Skin.Render("");
             int number = int.Parse(Console.ReadLine());
