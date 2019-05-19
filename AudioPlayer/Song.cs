@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AudioPlayer
 {
@@ -19,7 +14,7 @@ namespace AudioPlayer
             get => _playing;
             set => _playing = value;
         }
-
+        public static bool Loop { get; set; }
         public bool? LikeStatus { get; set; }
         public int Duration { get; set; }
         public string Title { get; set; }
@@ -30,15 +25,24 @@ namespace AudioPlayer
             get { return _genre.ToString(); }
             set
             {
-                if (value != null)
+                try
                 {
+                    if (value != null)
+                    {
+                        _genre = (Genre)Enum.Parse(typeof(Genre), value);
+                    }
+                    else
+                    {
+                        value = "Other";
+                        _genre = (Genre)Enum.Parse(typeof(Genre), value);
+                    }
+                }
+                catch (Exception e)
+                {
+                    value = "Other";
                     _genre = (Genre)Enum.Parse(typeof(Genre), value);
                 }
-                else
-                {
-                    value = "NotSpecified";
-                    _genre = (Genre)Enum.Parse(typeof(Genre), value);
-                }
+               
                 
             }
         }
@@ -66,12 +70,14 @@ namespace AudioPlayer
     }
     public enum Genre
     {
-        NotSpecified,
         Pop,
         Rock,
         Rap,
         HipHop,
         RussianRock,
-        RussianRap
+        RussianRap,
+        Alternative,
+        Blues,
+        Other
     }
 }

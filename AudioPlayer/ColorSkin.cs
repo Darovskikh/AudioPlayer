@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AudioPlayer
 {
@@ -17,10 +12,10 @@ namespace AudioPlayer
         }
         public ColorSkin(string color )
         {
-            string fl = Convert.ToString(color[0]);
-            fl = fl.ToUpper();
-            Color = color.Replace(color[0], Convert.ToChar(fl));
-            GetColor(Color);
+            //string fl = Convert.ToString(color[0]);
+            //fl = fl.ToUpper();
+            //Color = color.Replace(color[0], Convert.ToChar(fl));
+            GetColor(color);
         }
         public override void Clear()
         {
@@ -43,6 +38,10 @@ namespace AudioPlayer
         protected void GetColor(string clr)
         {
             _color = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), clr);
+            if (_color == ConsoleColor.Black)
+            {
+                _color = ConsoleColor.Blue;
+            }
         }
     }
 }
