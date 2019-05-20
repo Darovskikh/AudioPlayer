@@ -47,15 +47,12 @@ namespace AudioPlayer
 
         public void Play(List<Song> songs)
         {
-
-            
             foreach (var song in songs)
             {
                 _player.URL = song.Path;
+                Skin.Render($"Сейчас играет - {song.Artist.Name} - {song.Title}");
                 _player.controls.play();
             }
-
-
         }
         public void Play(Song song)
         {
@@ -104,6 +101,9 @@ namespace AudioPlayer
         {
             Songs.Clear();
             Skin.Render("Cписок песен очищен");
+            Skin.Render("Для загрузки песен нажмите L");
+            ShowSongsList();
+            Console.WriteLine();
         }
 
 
@@ -119,6 +119,7 @@ namespace AudioPlayer
         }
         public void Load()
         {
+            Console.WriteLine();
             List<FileInfo> fileInfos = new List<FileInfo>();
             Skin.Render("Укажите путь к папке с музыкой");
             Thread thread = new Thread(TakePath);
@@ -126,7 +127,7 @@ namespace AudioPlayer
             thread.Start();
             thread.Join();
             DirectoryInfo directoryInfo = new DirectoryInfo(_path);
-            foreach (var file in directoryInfo.GetFiles("*.mp3"))
+            foreach (var file in directoryInfo.GetFiles("*.wav"))
             {
                 fileInfos.Add(file);
             }
@@ -135,10 +136,14 @@ namespace AudioPlayer
                 var audio = File.Create(file.FullName);
                 Songs.Add(new Song() { Album = new Album(audio?.Tag.Album, (int)audio.Tag?.Year), Artist = new Artist(audio.Tag?.FirstPerformer), Duration = (int)audio.Properties.Duration.TotalSeconds, Genre = audio.Tag?.FirstGenre, Lyrics = audio.Tag?.Lyrics, Title = audio.Tag?.Title, Path = audio.Name });
             }
+            ShowSongsList();
+            ShowMessage();
+
         }
 
         public void SaveAsPlaylist()
         {
+            Console.WriteLine();
             Skin.Render("Введите название плейлиста");
             Playlist playlist = new Playlist(Console.ReadLine(), Songs);
             Playlists.Add(playlist);
@@ -148,7 +153,6 @@ namespace AudioPlayer
                 playlist.Path = fs.Name;
                 xmlSerializer.Serialize(fs, Playlists);
             }
-
         }
 
         public void LoadPlayList()
@@ -184,9 +188,11 @@ namespace AudioPlayer
             return filteredSongs;
         }
 
-        public void ShowSongsList()
+        private static void ShowSongsList()
         {
             int i = 0;
+            Console.WriteLine();
+            Skin.Render("Текущий плейлист:");
             foreach (var song in Songs)
             {
                 if (song.Artist.Name == null)
@@ -225,6 +231,16 @@ namespace AudioPlayer
             }
         }
 
+        private static void ShowMessage()
+        {
+            Console.WriteLine();
+            Skin.Render("Для воспроизведения песни по номеру нажмите P");
+            Skin.Render("Для воспроизведения всех песен введите 0");
+            Skin.Render("Для загрузки песен нажмите L");
+            Skin.Render("Для очистки списка песен нажмите C");
+            Skin.Render("Для выхода нажмите ESC");
+            Console.WriteLine();
+        }
         ~Player()
         {
             Dispose(false);

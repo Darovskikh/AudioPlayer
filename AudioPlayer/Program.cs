@@ -42,49 +42,92 @@ namespace AudioPlayer
             switch (Console.ReadLine())
             {
                 case "1":
-                {
-                     _player = new Player(new ClassicSkin());
-                     _skin = Player.Skin;
-                    break;
-                }
+                    {
+                        _player = new Player(new ClassicSkin());
+                        _skin = Player.Skin;
+                        break;
+                    }
 
                 case "2":
-                {
-                    WriteLine();
-                     _player = new Player(new ColorSkin(ChooseColor()));
-                     _skin = Player.Skin;
-                    break;
-                }
+                    {
+                        WriteLine();
+                        _player = new Player(new ColorSkin(ChooseColor()));
+                        _skin = Player.Skin;
+                        break;
+                    }
 
                 case "3":
-                {
-                    _player = new Player(new RandomSkin());
-                    _skin = Player.Skin;
-                    break;
-                }
+                    {
+                        _player = new Player(new RandomSkin());
+                        _skin = Player.Skin;
+                        break;
+                    }
             }
-            
+
             _player.Load();
-            _player.ShowSongsList();
-            WriteLine();
-            _skin.Render("Введите номер песни для воспроизведения");
-            _skin.Render("Для воспроизведения всех песен введите 0");
-            _skin.Render("Для выхода нажмите ESC");
             int p = 0;
-            while (p!=1)
+            while (p != 1)
             {
-                int number = int.Parse(ReadLine());
-                if (number == 0)
+                //int number = int.Parse(ReadLine());
+                //if (number == 0)
+                //{
+                //    _player.Play(Player.Songs);
+                //}
+                //else
+                //{
+                //    _player.Play(Player.Songs[number - 1]);
+                //}
+                //if (ReadKey(true).Key==ConsoleKey.Escape)
+                //{
+                //    p = 1;
+                //}
+
+                switch (ReadKey(true).Key)
                 {
-                    _player.Play(Player.Songs);
-                }
-                else
-                {
-                    _player.Play(Player.Songs[number - 1]);
-                }
-                if (ReadKey(true).Key==ConsoleKey.Escape)
-                {
-                    p = 1;
+                    case ConsoleKey.L:
+                        {
+                            _player.Load();
+                            break;
+                        }
+
+                    case ConsoleKey.D0:
+                        {
+                            _player.Play(Player.Songs);
+                            break;
+                        }
+                    case ConsoleKey.NumPad0:
+                    {
+                        _player.Play(Player.Songs);
+                        break;
+                    }
+
+                    case ConsoleKey.C:
+                    {
+                        _player.Clear();
+                        break;
+                    }
+
+                    case ConsoleKey.Escape:
+                        {
+                            p = 1;
+                            break;
+                        }
+
+                    case ConsoleKey.P:
+                        {
+                            try
+                            {
+                                _skin.Render("Введите номер песни для воспроизведения");
+                                int number = int.Parse(ReadLine());
+                                _player.Play(Player.Songs[number - 1]);
+                            }
+                            catch (Exception e)
+                            {
+                                _skin.Render(e.ToString());
+                            }
+
+                            break;
+                        }
                 }
             }
             _player.Dispose();
@@ -95,16 +138,16 @@ namespace AudioPlayer
             //    {
             //        case ConsoleKey.Escape:
             //            return;
-                        
-                    
-                   
+
+
+
             //    }
             //}
             //player.SaveAsPlaylist();
             //player.LoadPlayList();
             //Player.Play(Player.Songs);
         }
-
+        
         private static string ChooseColor()
         {
             _skin.Render("Выберете цвет из списка");
