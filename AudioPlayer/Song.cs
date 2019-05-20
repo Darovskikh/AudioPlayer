@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace AudioPlayer
 {
@@ -6,7 +7,7 @@ namespace AudioPlayer
     public class Song
     {
         private Genre _genre;
-        [NonSerialized] // все равно сериализует playing
+        [XmlIgnore]
         private bool _playing;
 
         public bool Playing
