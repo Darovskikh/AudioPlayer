@@ -225,8 +225,8 @@ namespace AudioPlayer
                     Playlists = null;
                     Skin = null;
                     Songs = null;
-                    return;
                 }
+                else
                 {
                     _player?.close();
                     _player = null;
