@@ -220,11 +220,15 @@ namespace AudioPlayer
             {
                 if (disposing)
                 {
+                    _player.close();
+                    _player = null;
+                    Playlists = null;
+                    Skin = null;
+                    Songs = null;
                     return;
                 }
-
                 {
-                    _player.close();
+                    _player?.close();
                     _player = null;
                     disposed = true;
                 }
