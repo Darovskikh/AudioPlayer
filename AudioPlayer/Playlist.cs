@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace AudioPlayer
 {
     [Serializable]
     public class Playlist
     {
-        [NonSerialized]
+        [XmlIgnore]
         private string _path;
 
         public string Path
