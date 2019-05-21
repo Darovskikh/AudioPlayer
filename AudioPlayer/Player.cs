@@ -11,6 +11,7 @@ namespace AudioPlayer
 {
     class Player : IDisposable
     {
+        
         private bool disposed = false;
         private static string _path;
         private static WindowsMediaPlayer _player = new WindowsMediaPlayer();
