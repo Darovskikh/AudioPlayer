@@ -12,6 +12,7 @@ namespace AudioPlayer
         public override void Render(string text)
         {
             Console.WriteLine(text);
+            Console.ResetColor();
         }
 
         public override void Render(string text, ConsoleColor color)

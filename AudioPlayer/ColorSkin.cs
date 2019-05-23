@@ -26,12 +26,14 @@ namespace AudioPlayer
         {
             Console.ForegroundColor = _color;
             Console.WriteLine(text);
+            Console.ResetColor();
 
         }
         public override void Render(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.WriteLine(text);
+            Console.ResetColor();
 
         }
 
@@ -39,6 +41,10 @@ namespace AudioPlayer
         {
             _color = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), clr);
             if (_color == ConsoleColor.Black)
+            {
+                _color = ConsoleColor.Blue;
+            }
+            else if (_color == ConsoleColor.DarkBlue)
             {
                 _color = ConsoleColor.Blue;
             }
