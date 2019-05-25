@@ -60,6 +60,7 @@
     <Compile Include="ColorSkin.cs" />
     <Compile Include="CutString.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PlayerEventArgs.cs" />
     <Compile Include="Playlist.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
